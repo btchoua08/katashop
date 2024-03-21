@@ -1,0 +1,22 @@
+<mat-card>
+    <ng-container *ngIf="product$ | async as product">
+      <img [src]="product.image" [alt]="product.title">
+      <div class="product-info">
+        <h1>{{ product.title }}</h1>
+        <h2>{{ product.category }}</h2>
+        <h2>{{product.price | currency}}</h2>
+        <h3> {{ product.description }}</h3>
+        <h2> Rating : {{ product.rating.rate }}/{{ product.rating.count }}</h2>
+      </div>
+    </ng-container>
+    <mat-card-actions>
+      <mat-spinner *ngIf="loading$ | async; else buttons"></mat-spinner>
+      <ng-template #buttons>
+        <div class="action-buttons">
+         <button mat-flat-button color="accent" (click)="onAdd()">Ajouter au panier </button>
+         <button mat-flat-button color="primary" (click)="onGoBack()">Retour</button>
+        </div>
+        
+      </ng-template>
+    </mat-card-actions>
+  </mat-card>

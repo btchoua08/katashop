@@ -1,0 +1,37 @@
+<mat-card>
+    
+      <div class="form">
+        <mat-form-field appearance="fill">
+            <input matInput type="text" [formControl]="searchCtrl">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-select [formControl]="searchTypeCtrl">
+                <mat-option *ngFor="let option of searchTypeOptions" [value]="option.value">{{ option.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+  <div class="content">
+    <mat-spinner *ngIf="loading$ | async"></mat-spinner>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="products$ | async as products">
+      <div
+        fxFlex="25%"
+        fxFlex.xs="100%"
+        fxFlex.sm="33%"
+        *ngFor="let product of products" 
+      >
+            <mat-card class="card">
+                    <h3>{{ product.title }}</h3>
+                    <h3>{{ product.category }}</h3>
+                <img mat-card-image [src]="product.image" [alt]="product.title">
+                <mat-card-content>
+                    <p class="price" mat-line>{{product.price | currency}}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-stroked-button color="primary" [routerLink]="product.id.toString()">More details</button>
+                    </mat-card-actions>
+            </mat-card>
+      </div>
+    </div>
+  </div>
+</mat-card>
